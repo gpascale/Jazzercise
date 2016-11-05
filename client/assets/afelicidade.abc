@@ -1,0 +1,33 @@
+X:1
+T:Music21 Fragment
+C:Music21
+L:1/4
+M:none
+I:linebreak $
+K:Amin
+V:1 bass
+V:1
+|:"Am7" C,2 G,2 |"Am7" C,2 G,2 |"Cmaj7" E,2 B,2 |$"Cmaj7" E,2 B,2 | %4
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Em7" G,2 D2 |"B7b2" ^D,2 A,2 |"Em7" G, =D"A7" ^C, G, |$"Dm7" F, =C"G7" B,, F, :| %8
+w: 3rd 7th|3rd 7th|3rd 7th 3rd 7th|3rd 7th 3rd 7th|
+"Cmaj7" E,2 B,2 |"Cmaj7" E,2 B,2 |"Bm7b5" D,2 A,2 |$"E7b2" ^G,2 D2 | %12
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Am7" C,2 =G,2 |"Am7" C,2 G,2 |"Gm7" _B,,2 F,2 |$"C7" E,2 _B,2 | %16
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Fmaj7" A,,2 E,2 |"Dm7" F,2 C2 |"Am7" C,2 G,2 |$"D7" ^F,2 C2 | %20
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Am7" C,2 G,2 |"Bm7b5" D, A,"E7b2" ^G, D |"Am7" C,2 =G,2 |$"G7" B,,2 F,2 || %24
+w: 3rd 7th|3rd 7th 3rd 7th|3rd 7th|3rd 7th|
+"Cmaj7" E,2 B,2 |"F7" A,,2 _E,2 |"Cmaj7" =E,2 B,2 |$"Cmaj7" E,2 B,2 | %28
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Gm7" _B,,2 F,2 |"C7" E,2 _B,2 |"Fmaj7" A,,2 E,2 |$"Fmaj7" A,,2 E,2 | %32
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Dm7" F,2 C2 |"G7" B,,2 F,2 |"Cmaj7" E,2 B,2 |$"Cmaj7" E,2 B,2 | %36
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"F#m7b5" A,,2 E,2 |"B7b2" ^D,2 A,2 |"Em7" G, =D"A7" ^C, G, |$"Dm7" F, =C"G7" B,, F, || %40
+w: 3rd 7th|3rd 7th|3rd 7th 3rd 7th|3rd 7th 3rd 7th|
+"Am7" C,2 G,2 |"Am7/G" C,2 G,,2 |"D7/F#" ^F,2 C2 |$"Dm7/F" =F,2 C2 | %44
+w: 3rd 7th|3rd 7th|3rd 7th|3rd 7th|
+"Am7" C,2 G,2 |"Bm7b5" D, A,"E7b2" ^G, D |"Am7" C,2 =G,2 |$"Am7" C,2 G,2 |] %48
+w: 3rd 7th|3rd 7th 3rd 7th|3rd 7th|3rd 7th|

@@ -1,7 +1,13 @@
 const abcjs = require("imports?window=>{}!exports?window.ABCJS!ext/abcjs.js")
-const abcMusic = require('raw!afelicidade.abc');
+const abcMusic = require('raw!assets/afelicidade.abc');
 
 import React from 'react';
+
+function cleanupAbc(abcText) {
+  var ret = abcText;
+  ret = ret.replace(/\$/g, '');
+  return ret;
+}
 
 export default class SvgScore extends React.Component {
 
@@ -16,8 +22,9 @@ export default class SvgScore extends React.Component {
 
   componentDidMount() {
     console.log("Rendering abc...");
-    var ret = abcjs.renderAbc('score', abcMusic);
-    console.dir(ret);
+    const abcMusicCleaned = cleanupAbc(abcMusic);
+    console.log(abcMusicCleaned);
+    abcjs.renderAbc('score', abcMusicCleaned);
   }
 
 }
