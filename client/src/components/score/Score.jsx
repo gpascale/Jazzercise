@@ -69,7 +69,7 @@ export default class Score extends React.Component {
     }).addClef('treble').addTimeSignature('4/4');
     system.addStave({
       voices: [
-	score.voice(score.notes('C#4/h, C#4', {stem: 'up'}))
+	score.voice(score.notes('C#4/h, C#4', {stem: 'down'}))
       ]
     }).addClef('treble').addTimeSignature('4/4');
 

@@ -66,7 +66,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: Path.join(__dirname, 'src/html/index.html'),
     }),
-    ExtractSASS
+    new webpack.ProvidePlugin({
+      'Raphael': 'raphael'
+    }),
   ].concat(
   IS_DEBUG_BUILD ?
     // DEBUG PLUGINS
@@ -75,6 +77,7 @@ module.exports = {
     ] :
     // PRODUCTION PLUGINS
     [
+      ExctractSASS
     // new webpack.optimize.DedupePlugin(),
     // new webpack.optimize.OccurenceOrderPlugin(),
     // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),

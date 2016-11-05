@@ -9,6 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import App from '../components/hello/Hello';
 import Score from '../components/score/Score';
+import SvgScore from '../components/svgscore/SvgScore';
+import AbcScore from '../components/abcscore/AbcScore';
 
 require('../scss/bundle.scss');
 
@@ -25,7 +27,7 @@ ReactDOM.render(
     </MuiThemeProvider>
     <div className="content">
       <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
-	<Route path="/" component={Score}>
+	<Route path="/" component={AbcScore}>
 	</Route>
       </Router>
     </div>
