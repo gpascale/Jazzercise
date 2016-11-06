@@ -5,6 +5,9 @@ import subprocess
 
 MUSICXML_PATH = '../musicxml'
 
+def loadScoreForTune(tune):
+    return loadScore(tune + '.xml')
+
 def loadScore(filename):
     return converter.parseFile(os.path.join(MUSICXML_PATH, filename))
 

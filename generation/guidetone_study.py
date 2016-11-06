@@ -17,8 +17,8 @@ from music21 import converter
 #     MyScore.metadata.composer = 'Basso Ridiculoso using Music21' + "\n" + "bassoridiculoso.blogspot.com"
 #     MyScore.metadata.Copyright = 'All Rights 2016'
 
-def generate(clef=m21.clef.TrebleClef()):
-    score = m21utils.loadScore('A Felicidade.xml')
+def generate(tune, clef=m21.clef.TrebleClef()):
+    score = m21utils.loadScoreForTune(tune)
     # print 'score', score
     s = score.parts[0].getElementsByClass("Measure")
     m21.harmony.realizeChordSymbolDurations(s) ## Needed to make this work!
@@ -66,10 +66,10 @@ def generate(clef=m21.clef.TrebleClef()):
 	    else:
 		 if (c[x].duration.type != "zero"):
 		    if (c[x].root().name != c[x].bass().name):
-			 # print (c[x].root().name, c[x].bass().name)
-			 MySymbol =  ChordSymbol(root=c[x].root(), bass=c[x].bass(), kind=c[x].chordKind)
+			# print (c[x].root().name, c[x].bass().name)
+			MySymbol = ChordSymbol(root=c[x].root(), bass=c[x].bass(), kind=c[x].chordKind)
 		    else:
-			MySymbol =  ChordSymbol(root=c[x].root(), bass=c[x].root(), kind=c[x].chordKind)
+			MySymbol = ChordSymbol(root=c[x].root(), bass=c[x].root(), kind=c[x].chordKind)
 		    MySymbol.duration = c[x].duration
 		    MyMeasure.append(MySymbol)
 		    # print("Wrote chord " + str(MySymbol.figure) + "...")
