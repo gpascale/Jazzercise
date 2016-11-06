@@ -19,3 +19,11 @@ body {
   margin: 0 auto;
   max-width: 1000px;
 }
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.displayNone {
+  display: none !important;
+}

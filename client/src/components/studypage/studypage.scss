@@ -4,7 +4,14 @@
   .controls {
     text-align: left;
     margin-bottom: 20px;
-    border-bottom: 1px solid gray;
+
+    .dropdownLabel {
+      color: $dark-gray;
+      font-weight: normal;
+      &:not(:first-child) {
+	margin-left: 30px;
+      }
+    }
   }
 
 }

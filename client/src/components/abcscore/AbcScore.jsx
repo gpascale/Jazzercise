@@ -18,7 +18,7 @@ export default class SvgScore extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.abcText) {
+    if (nextProps.abcText != this.props.abcText) {
       this._renderAbc(nextProps.abcText);
     }
   }
