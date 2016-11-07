@@ -26,7 +26,7 @@ const muiTheme = getMuiTheme({
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <div className="container">
-      <AppBar title="Study Generator"/>
+      <AppBar title="Jazzercise"/>
       <div className="content">
 	<Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
 	  <Route path="/" component={StudyPage}>
