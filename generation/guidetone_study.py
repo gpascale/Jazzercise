@@ -7,22 +7,12 @@ from music21.harmony import ChordSymbol
 from music21.note import Note
 from music21 import converter
 
-# def DoMyMeta():
-#     w = src.metadata
-#     MyScore.metadata = metadata.Metadata()
-# #      TheDate = datetime.now()
-# #         Timestamp = str( str(TheDate.month)+ "-" + str(TheDate.day) + "-" + str(TheDate.hour) + "-" + str(TheDate.second))
-#     # TitleString = str('Line Breaks' + '\n' + Timestamp)
-#     MyScore.metadata.movementName = str("Guide Tones for \'" + w.movementName + "\'")
-#     MyScore.metadata.composer = 'Basso Ridiculoso using Music21' + "\n" + "bassoridiculoso.blogspot.com"
-#     MyScore.metadata.Copyright = 'All Rights 2016'
-
 def generate(tune, clef=m21.clef.TrebleClef()):
     score = m21utils.loadScoreForTune(tune)
     # print 'score', score
     s = score.parts[0].getElementsByClass("Measure")
     m21.harmony.realizeChordSymbolDurations(s) ## Needed to make this work!
-    MyScore = m21.stream.Stream()
+    MyScore = m21.stream.Score()
     MyScore.append(s[0].keySignature) ## get key from document
     MyScore.append(clef) #add clef
 
@@ -91,4 +81,12 @@ def generate(tune, clef=m21.clef.TrebleClef()):
 		sl = m21.layout.SystemLayout(isNew=True)
 		MyMeasure.append(sl)
 	MyScore.append(MyMeasure)
+
+    # Set metadata
+    title = tune + ' - Guide Tone Study'
+    MyScore.metadata = m21.metadata.Metadata()
+    MyScore.metadata.title = title
+    MyScore.metadata.movementName = ' ' # For some reason this works, None and '' don't...
+    MyScore.metadata.composer = 'Greg Pascale'
+
     return MyScore

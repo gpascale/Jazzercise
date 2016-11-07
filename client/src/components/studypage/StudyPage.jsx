@@ -30,8 +30,6 @@ var StudyPage = React.createClass({
       return ( <MenuItem key={idx} value={type} primaryText={type} /> );
     });
 
-    console.log("render - " + this.state.loading);
-
     return (
       <div className="studyPage">
 	<div className="controls">
@@ -70,9 +68,7 @@ var StudyPage = React.createClass({
     var self = this;
     var url = 'http://localhost:5001/api/generateStudy?tune=' + this.state.selectedTune;
     this.setState({ loading: true }, () => {
-      console.log("LOADING");
       common.GETJSON(url, function(result) {
-	console.log("LOADED");
 	self.setState({
 	  abcText: result.abc,
 	  loading: false

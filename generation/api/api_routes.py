@@ -30,7 +30,6 @@ def listTunes():
 
 @app.route('/api/generateStudy')
 def generateStudy():
-    print request.args
     study = guidetone_study.generate(request.args['tune'])
     abc = m21utils.writeToAbc(study)
     return makeJsonResponse({ 'abc': abc })

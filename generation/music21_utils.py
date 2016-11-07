@@ -17,7 +17,7 @@ def loadScore(filename):
 # reading the file and returning the result, deleting the temp file
 # when finished
 def writeToString(music21Object, fmt=None):
-    fp = music21Object.write(fmt=fmt, fp=None)
+    fp = music21Object.write(fmt='musicxml', fp=None)
     ret = ''
     with open(fp, 'r') as f:
 	ret = f.read()
