@@ -980,7 +980,7 @@ class Parser:
 		except: n = '"%s"' % n.strip () # illegal musicXML
 		s.msr.lnum = n          # assume a start is always at the beginning of a measure
 	    elif s.msr.rline == '|':    # stop and discontinue the same  in ABC ?
-		s.msr.rline = '||'      # to stop on a normal barline use || in ABC ?
+		s.msr.rline = '|'      # to stop on a normal barline use || in ABC ?
 	return 0
 
     def doPrint (s, e):     # print element, measure number -> insert a line break

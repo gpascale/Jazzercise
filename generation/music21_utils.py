@@ -6,11 +6,13 @@ import subprocess
 MUSICXML_PATH = '../musicxml'
 
 def loadScoreForTune(tune):
-    return loadScore(tune + '.xml')
+    return loadScore(filenameForTune(tune))
 
 def loadScore(filename):
-    return converter.parseFile(os.path.join(MUSICXML_PATH, filename))
+    return converter.parseFile(filename)
 
+def filenameForTune(tune):
+    return os.path.join(MUSICXML_PATH, tune + '.xml')
 
 # Music21 only seems to support writing to a file - not to a string.
 # This function implements writing to a string by writing to a temp file,
@@ -30,6 +32,13 @@ def writeToAbc(music21Object):
     command = [ 'python', 'xml2abc.py', '-b', '4', fp ]
     result = subprocess.check_output(command)
     return result
+
+
+def xmlToAbc(xmlPath):
+    command = [ 'python', 'xml2abc.py', '-b', '4', xmlPath ]
+    result = subprocess.check_output(command)
+    return result
+
 
 ###############################################################################
 #  Chord symbol rewriting utilities from Daniel

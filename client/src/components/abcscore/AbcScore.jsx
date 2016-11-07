@@ -13,7 +13,7 @@ function cleanupAbc(abcText) {
   }
   var ret = abcText;
   ret = ret.replace(/\$/g, '');
-  ret = "%%staffsep 50\n" + ret;
+  ret = "%%staffsep 70\n" + ret;
   return ret;
 }
 

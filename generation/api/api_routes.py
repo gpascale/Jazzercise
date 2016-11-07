@@ -6,7 +6,7 @@ import glob
 import os
 
 import music21_utils as m21utils
-import guidetone_study
+import guidetone_study_greg as guidetone_study
 
 def makeJsonResponse(jsonData, isAlreadyStringified=False):
     response = flask.jsonify(jsonData)
@@ -34,6 +34,7 @@ def listTunes():
 
 @app.route('/api/generateStudy')
 def generateStudy():
-    study = guidetone_study.generate(request.args['tune'])
+    tune = request.args['tune']
+    study = guidetone_study.generate(tune)
     abc = m21utils.writeToAbc(study)
     return makeJsonResponse({ 'abc': abc })
