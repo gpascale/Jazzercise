@@ -1,5 +1,4 @@
 - Fix chord symbols
   - Bass notes don't show up
 - Increment ending numbers (shouldn't be 0 based)
-- Remove "Lead Sheet" at beginning of score
 - See if can get 2nd ending to appear on a new line - it's awkwardly wrapping

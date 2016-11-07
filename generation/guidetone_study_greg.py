@@ -8,10 +8,16 @@ from music21.note import Note
 from music21 import converter
 
 def generate(tune, clef=m21.clef.TrebleClef()):
+    # Load in the score
     score = m21utils.loadScoreForTune(tune)
-    measures = score.parts[0].getElementsByClass("Measure")
+
+    # Some basic preprocessing / cleanup
+    score.parts[0].removeByClass('Instrument')
+    score.parts[0].partName = None
     m21.harmony.realizeChordSymbolDurations(score) ## Argh!!!
 
+    # Go measure by measure and build the study
+    measures = score.parts[0].getElementsByClass("Measure")
     for measure in measures:
         print measure
         # Remove any existing notes in the measure (we're about to add our own)
