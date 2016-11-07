@@ -13,9 +13,9 @@ var StudyPage = React.createClass({
   getInitialState() {
     return {
       abcText: null,
-      selectedTune: "A Felicidade",
+      selectedTune: null,
       selectedType: "Guide Tones",
-      tunes: [ "A Felicidade", "All The Things You Are", "Giant Steps" ]
+      tunes: [ ]
     };
   },
 
@@ -61,7 +61,13 @@ var StudyPage = React.createClass({
   },
 
   componentDidMount: function() {
-    this._fetchStudy();
+    var self = this;
+    common.GETJSON('http://localhost:5001/api/tunes', function(result) {
+      self.setState({
+	tunes: result.tunes,
+	selectedTune: result.tunes[0]
+      }, self._fetchStudy);
+    });
   },
 
   _fetchStudy: function() {

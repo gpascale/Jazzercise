@@ -2,6 +2,8 @@ from api import app
 import flask
 from flask import Flask, request, Response
 import json
+import glob
+import os
 
 import music21_utils as m21utils
 import guidetone_study
@@ -25,7 +27,9 @@ def ping():
 
 @app.route('/api/tunes')
 def listTunes():
-    return makeJsonResponse({ 'tunes': [ ] })
+    tuneFiles = glob.glob('../musicxml/*.xml')
+    tunes = [ os.path.basename(x).replace('.xml', '') for x in tuneFiles ]
+    return makeJsonResponse({ 'tunes': tunes })
 
 
 @app.route('/api/generateStudy')
