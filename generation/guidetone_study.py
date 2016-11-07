@@ -65,17 +65,20 @@ def generate(tune, clef=m21.clef.TrebleClef()):
 		    # print("Wrote chord " + str(MySymbol.figure) + "...")
 	    n3 = Note(MySymbol.third)
 	    n3.duration = Duration(c[x].duration.quarterLength * 0.50)
-	    n3.lyric = '3rd'
+	    # n3.lyric = '3rd'
+	    n3.octave = 5
 	    MyMeasure.append(n3)
 	    if (MySymbol.containsSeventh()):
 		n7 = m21.note.Note(MySymbol.seventh)
 		n7.duration = Duration(c[x].duration.quarterLength * 0.50)
-		n7.lyric = '7th'
+		# n7.lyric = '7th'
+		n7.octave = 5
 		MyMeasure.append(n7)
 	    else:
 		n5 = m21.note.Note(MySymbol.root())
 		n5.duration = Duration(c[x].duration.quarterLength * 0.50)
-		n5.lyric = 'R'
+		# n5.lyric = 'R'
+		n5.octave = 5
 		MyMeasure.append(n5)
 	    if ((m.number)%4 == 0):
 		sl = m21.layout.SystemLayout(isNew=True)

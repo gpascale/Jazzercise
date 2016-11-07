@@ -40,7 +40,7 @@ def writeFlatNine(MyMeasure, RootNote, Duration, Kind):
     hd = harmony.ChordStepModification()
     hd.type = 'add'
     hd.interval = -1
-    hd.degree = 2
+    hd.degree = 9
     MySymbol.addChordStepModification(hd)
     MyMeasure.append(MySymbol)
     return(MySymbol)
@@ -51,7 +51,7 @@ def writeSharpNine(MyMeasure, RootNote, Duration, Kind):
     hd = harmony.ChordStepModification()
     hd.type = 'add'
     hd.interval = 1
-    hd.degree = 2
+    hd.degree = 9
     MySymbol.addChordStepModification(hd)
     MyMeasure.append(MySymbol)
     return(MySymbol)
