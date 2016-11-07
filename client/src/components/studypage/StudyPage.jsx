@@ -62,7 +62,7 @@ var StudyPage = React.createClass({
 
   componentDidMount: function() {
     var self = this;
-    common.GETJSON('http://' + window.location.host + ':5001/api/tunes', function(result) {
+    common.GETJSON('http://' + window.location.hostname + ':5001/api/tunes', function(result) {
       self.setState({
 	tunes: result.tunes,
 	selectedTune: result.tunes[0]
@@ -72,7 +72,7 @@ var StudyPage = React.createClass({
 
   _fetchStudy: function() {
     var self = this;
-    var url = 'http://' + window.location.host + ':5001/api/generateStudy?tune=' + this.state.selectedTune;
+    var url = 'http://' + window.location.hostname + ':5001/api/generateStudy?tune=' + this.state.selectedTune;
     this.setState({ loading: true }, () => {
       common.GETJSON(url, function(result) {
 	self.setState({
