@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --config webpack.config.js --watch --colors",
     "build": "rm -rf dist/ && NODE_ENV=production webpack --colors --profile",
-    "start": "PORT=3000 pm2 start ./server.js",
+    "start": "PORT=8080 pm2 start ./server.js",
     "test": "npm test"
   },
   "author": "Greg Pascale (greg.pascale@gmail.com)",
