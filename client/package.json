@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --config webpack.config.js --watch --colors",
     "build": "rm -rf dist/ && NODE_ENV=production webpack --colors --profile",
-    "run": "PORT=8080 pm2 start ./server.js",
+    "start": "PORT=3000 pm2 start ./server.js",
     "test": "npm test"
   },
   "author": "Greg Pascale (greg.pascale@gmail.com)",
@@ -25,6 +25,7 @@
     "imports-loader": "^0.6.5",
     "material-ui": "^0.16.1",
     "node-sass": "^3.11.2",
+    "pm2": "^2.1.4",
     "raphael": "^2.2.6",
     "raw-loader": "^0.5.1",
     "react-dom": "^15.3.2",
