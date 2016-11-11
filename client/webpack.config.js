@@ -5,6 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ExtractSASS = new ExtractTextPlugin(`/css/index.css`);
 
+console.log('BUILD TYPE: ' + (IS_DEBUG_BUILD ? 'development' : 'production'));
+
 module.exports = {
   module: {
     loaders: [
@@ -24,7 +26,7 @@ module.exports = {
   entry: (IS_DEBUG_BUILD ?
     // FOR DEBUG BUILDS, USE HOT RELOADING
     [
-      'webpack-dev-server/client?http://localhost:8080',
+      'webpack-dev-server/client?http://0.0.0.0:8080',
       'webpack/hot/dev-server',
       Path.join(__dirname, 'src/js/index.jsx')
     ] :
@@ -41,20 +43,20 @@ module.exports = {
   // Define loaders
   module: {
     loaders: [
-	{ test: /\.css$/, loader: 'style!css', },
-	{ test: /.jsx?$/, loaders: [ 'babel-loader' ], include: Path.join(__dirname, 'src') },
-	{ test: /\.(ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader?name=assets/fonts/[hash].[ext]' },
-	{ test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]' },
-      ].concat(
-	(IS_DEBUG_BUILD ?
-	  [
-	    { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
-	  ] :
-	  [
-	    { test: /\.scss$/, loader: ExtractSASS.extract(['css', 'sass']) }
-	  ]
-	)
+      { test: /\.css$/, loader: 'style!css', },
+      { test: /.jsx?$/, loaders: [ 'babel-loader' ], include: Path.join(__dirname, 'src') },
+      { test: /\.(ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader?name=assets/fonts/[hash].[ext]' },
+      { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]' },
+          ].concat(
+      (IS_DEBUG_BUILD ?
+        [
+          { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
+        ] :
+        [
+          { test: /\.scss$/, loader: ExtractSASS.extract(['css', 'sass']) }
+        ]
       )
+    )
   },
 
   resolve: {
@@ -77,10 +79,10 @@ module.exports = {
     ] :
     // PRODUCTION PLUGINS
     [
-      ExctractSASS
-    // new webpack.optimize.DedupePlugin(),
-    // new webpack.optimize.OccurenceOrderPlugin(),
-    // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+      ExtractSASS,
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     ]
   ),
 

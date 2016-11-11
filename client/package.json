@@ -4,8 +4,9 @@
   "description": "React/Webpack boilerplate",
   "main": "server.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.js --watch --colors",
-    "build": "rm -rf dist/ && webpack --colors --profile --watch",
+    "dev": "webpack-dev-server --host 0.0.0.0 --config webpack.config.js --watch --colors",
+    "build": "rm -rf dist/ && NODE_ENV=production webpack --colors --profile",
+    "run": "PORT=8080 pm2 start ./server.js",
     "test": "npm test"
   },
   "author": "Greg Pascale (greg.pascale@gmail.com)",
