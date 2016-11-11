@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --config webpack.config.js --watch --colors",
-    "build": "rm -rf dist/ && NODE_ENV=production webpack --colors --profile",
+    "build": "rm -rf dist/ && NODE_ENV=production webpack -p --colors --profile",
     "start": "PORT=8080 pm2 start ./server.js",
     "test": "npm test"
   },

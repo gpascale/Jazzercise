@@ -5,8 +5,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const ExtractSASS = new ExtractTextPlugin(`/css/index.css`);
 
-console.log('BUILD TYPE: ' + (IS_DEBUG_BUILD ? 'development' : 'production'));
-
 module.exports = {
   module: {
     loaders: [
@@ -20,7 +18,7 @@ module.exports = {
 
 module.exports = {
   context: __dirname,
-  devtool: IS_DEBUG_BUILD ? "inline-sourcemap" : null,
+  devtool: IS_DEBUG_BUILD ? "inline-sourcemap" : "cheap-module-source-map",
 
   // Entry Point
   entry: (IS_DEBUG_BUILD ?
@@ -80,14 +78,14 @@ module.exports = {
     // PRODUCTION PLUGINS
     [
       new webpack.DefinePlugin({
-        "process.env": { 
-          NODE_ENV: JSON.stringify(IS_DEBUG_BUILD ? "development" : "production")
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production')
         }
       }),
       ExtractSASS,
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+      new webpack.optimize.UglifyJsPlugin({ minimize: true, mangle: false, sourcemap: false }),
     ]
   ),
 
