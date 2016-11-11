@@ -79,6 +79,11 @@ module.exports = {
     ] :
     // PRODUCTION PLUGINS
     [
+      new webpack.DefinePlugin({
+        "process.env": { 
+          NODE_ENV: JSON.stringify(IS_DEBUG_BUILD ? "development" : "production")
+        }
+      }),
       ExtractSASS,
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
