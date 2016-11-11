@@ -6,3 +6,6 @@ npm-debug.log
 *.sublime*
 *~
 #*
+*.pyc
+node_modules/
+dist/
