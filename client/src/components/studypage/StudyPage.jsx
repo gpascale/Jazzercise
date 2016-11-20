@@ -93,8 +93,15 @@ var StudyPage = React.createClass({
 
   _playMidi: function() {
     MIDI.loadPlugin({ soundfontUrl: "./assets/soundfont/", onsuccess: () => {
-      MIDI.Player.loadFile(this.state.midi, () => {
-        MIDI.Player.start();
+      const player = MIDI.Player;
+      player.loadFile(this.state.midi.lead, () => {
+        player.start();
+        player.addListener(function(evt) {
+          if (evt.message == 144) {
+            console.log("NOTE ON: " + evt.note);
+            console.log("TIME: " + evt.now);
+          }
+        });
       });
     }});
     

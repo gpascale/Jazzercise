@@ -45,16 +45,6 @@ def xmlToAbc(xmlPath):
 def writeToMidi(music21Object):
     mf = music21.midi.translate.streamToMidiFile(music21Object)
     return 'data:audio/midi;base64,' + base64.b64encode(mf.writestr())
-    # MIDI_DIR = '/tmp/midi/'
-    # if not os.path.exists(MIDI_DIR):
-    #     os.makedirs(MIDI_DIR)
-    # print str(music21Object)
-    # midiFilePath = MIDI_DIR + md5(str(music21Object)).hexdigest() + '.midi'
-    # mf = music21.midi.translate.streamToMidiFile(music21Object)
-    # mf.open(midiFilePath, 'wb')
-    # mf.write()
-    # mf.close() 
-    # return midiFilePath
 
 
 ###############################################################################

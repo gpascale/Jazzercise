@@ -29,23 +29,23 @@ var AbcScore = React.createClass({
   render: function() {
     return (
       <div className="abcscore">
-	<div className="score" ref="score" id="score">
-	  { /* ABCJS-renders here */ }
-	</div>
-	<IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-		  anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-		  targetOrigin={{horizontal: 'right', vertical: 'top'}}
-		  style={{position: 'absolute', top: 0, right: 0}}>
-	  <MenuItem primaryText="View Source" onClick={() => this.setState({ viewingSource: true })}/>
-	</IconMenu>
-	<Dialog title="View Source"
-		modal={false}
-		open={this.state.viewingSource}
-		onRequestClose={() => this.setState({viewingSource: false})}>
-	  <pre>
-	    {cleanupAbc(this.props.abcText)}
-	  </pre>
-	</Dialog>
+      	<div className="score" ref="score" id="score">
+      	  { /* ABCJS-renders here */ }
+      	</div>
+      	<IconMenu iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      		  anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      		  targetOrigin={{horizontal: 'right', vertical: 'top'}}
+      		  style={{position: 'absolute', top: 0, right: 0}}>
+      	  <MenuItem primaryText="View Source" onClick={() => this.setState({ viewingSource: true })}/>
+      	</IconMenu>
+      	<Dialog title="View Source"
+      		modal={false}
+      		open={this.state.viewingSource}
+      		onRequestClose={() => this.setState({viewingSource: false})}>
+      	  <pre>
+      	    {cleanupAbc(this.props.abcText)}
+      	  </pre>
+      	</Dialog>
       </div>
     )
   },

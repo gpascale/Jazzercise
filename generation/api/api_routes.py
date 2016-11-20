@@ -4,6 +4,7 @@ from flask import Flask, request, Response
 import json
 import glob
 import os
+from copy import deepcopy
 
 import music21_utils as m21utils
 import guidetone_study_greg as guidetone_study
@@ -36,6 +37,21 @@ def listTunes():
 def generateStudy():
     tune = request.args['tune']
     study = guidetone_study.generate(tune)
+
+    # Write out the notation
     abc = m21utils.writeToAbc(study)
-    midi = m21utils.writeToMidi(study)
-    return makeJsonResponse({ 'abc': abc, 'midi': midi })
+
+    # Generate MIDI for the accompaniment
+    accompaniment = deepcopy(study)
+    measures = accompaniment.parts[0].getElementsByClass("Measure")
+    for measure in measures:
+        measure.removeByClass('Note')
+    accompanimentMidi = m21utils.writeToMidi(accompaniment)
+    # ...and lead
+    lead = deepcopy(study)
+    measures = lead.parts[0].getElementsByClass("Measure")
+    for measure in measures:
+        measure.removeByClass('ChordSymbol')
+    leadMidi = m21utils.writeToMidi(lead)
+
+    return makeJsonResponse({ 'abc': abc, 'midi': { 'accompaniment': accompanimentMidi, 'lead': leadMidi } })
