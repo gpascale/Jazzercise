@@ -63,7 +63,6 @@ def generate(tune, clef=m21.clef.TrebleClef()):
                         MySymbol.duration = c[x].duration
                         MyMeasure.append(MySymbol)
                         # print("Wrote chord " + str(MySymbol.figure) + "...")
-            print c[x].duration
             n3 = Note(MySymbol.third)
             n3.duration = Duration(c[x].duration.quarterLength * 0.50)
             # n3.lyric = '3rd'

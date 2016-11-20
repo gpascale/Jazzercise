@@ -45,6 +45,7 @@ module.exports = {
       { test: /.jsx?$/, loaders: [ 'babel-loader' ], include: Path.join(__dirname, 'src') },
       { test: /\.(ttf|eot|woff(2)?)(\?[a-z0-9]+)?$/, loader: 'file-loader?name=assets/fonts/[hash].[ext]' },
       { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file?hash=sha512&digest=hex&name=assets/images/[hash].[ext]' },
+      { test: /soundfont\/.*js$/i, loader: 'file?name=assets/soundfont/[name].[ext]' },
           ].concat(
       (IS_DEBUG_BUILD ?
         [

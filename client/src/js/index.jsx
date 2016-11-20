@@ -6,7 +6,6 @@ import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import App from '../components/hello/Hello';
 import AbcScore from '../components/abcscore/AbcScore';
 import StudyPage from '../components/studypage/StudyPage';
 
@@ -23,14 +22,9 @@ const muiTheme = getMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
-    <div className="container">
-      <AppBar title="Jazzercise"/>
-      <div className="content">
-        <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
-          <Route path="/" component={StudyPage}>
-          </Route>
-        </Router>
-      </div>
-    </div>
+    <Router onUpdate={() => window.scrollTo(0, 0)} history={browserHistory}>
+      <Route path="/" component={StudyPage}>
+      </Route>
+    </Router>
   </MuiThemeProvider>
   , document.getElementById('react-root'));

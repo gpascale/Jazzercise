@@ -19,7 +19,7 @@ def generate(tune, clef=m21.clef.TrebleClef()):
     # Go measure by measure and build the study
     measures = score.parts[0].getElementsByClass("Measure")
     for measure in measures:
-        print measure
+        # print measure
         # Remove any existing notes in the measure (we're about to add our own)
         measure.removeByClass('Note')
         # Grab the list of chord symbols in this measure
@@ -30,7 +30,7 @@ def generate(tune, clef=m21.clef.TrebleClef()):
         # Add notes for each chord symbol
         for symbol in chordSymbols:
             measure.append(symbol)
-            print symbol.duration.quarterLength
+            # print symbol.duration.quarterLength
             n3 = Note(symbol.third)
             n3.duration = Duration(symbol.duration.quarterLength * 0.50)
             n3.octave = 5

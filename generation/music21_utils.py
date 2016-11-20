@@ -2,6 +2,8 @@ import music21
 from music21 import harmony, converter
 import os
 import subprocess
+from hashlib import md5
+import base64
 
 MUSICXML_PATH = '../musicxml'
 
@@ -38,6 +40,21 @@ def xmlToAbc(xmlPath):
     command = [ 'python', 'xml2abc.py', '-b', '4', xmlPath ]
     result = subprocess.check_output(command)
     return result
+
+
+def writeToMidi(music21Object):
+    mf = music21.midi.translate.streamToMidiFile(music21Object)
+    return 'data:audio/midi;base64,' + base64.b64encode(mf.writestr())
+    # MIDI_DIR = '/tmp/midi/'
+    # if not os.path.exists(MIDI_DIR):
+    #     os.makedirs(MIDI_DIR)
+    # print str(music21Object)
+    # midiFilePath = MIDI_DIR + md5(str(music21Object)).hexdigest() + '.midi'
+    # mf = music21.midi.translate.streamToMidiFile(music21Object)
+    # mf.open(midiFilePath, 'wb')
+    # mf.write()
+    # mf.close() 
+    # return midiFilePath
 
 
 ###############################################################################

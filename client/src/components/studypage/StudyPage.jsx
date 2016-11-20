@@ -3,9 +3,13 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 import _ from 'underscore'
+import MIDI from 'midi.js'
 
+import PageLayout from '../pagelayout/PageLayout'
 import AbcScore from '../abcscore/AbcScore'
 import common from 'src/js/common'
+
+require('assets/soundfont/acoustic_grand_piano-ogg.js');
 
 
 var StudyPage = React.createClass({
@@ -31,32 +35,35 @@ var StudyPage = React.createClass({
     });
 
     return (
-      <div className="studyPage">
-	<div className="controls">
-	  <span className="dropdownLabel tuneDropdownLabel">Tune:</span>
-	  <DropDownMenu ref="tuneDropdown" value={this.state.selectedTune}
-			iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
-			onChange={(event, index, value) =>
-			  self.setState({selectedTune: value}, self._fetchStudy)
-			}>
-	    {tuneList}
-	  </DropDownMenu>
-	  <span className="dropdownLabel typeDropdownLabel">Type:</span>
-	  <DropDownMenu ref="typeDropdown" value={this.state.selectedType}
-			iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
-			onChange={(event, index, value) =>
-			  self.setState({selectedType: value}, self._fetchStudy)
-			}>
-	    {typeList}
-	  </DropDownMenu>
-	</div>
-	<div className={"scoreWrapper " + (this.state.loading ? "displayNone" : "")}>
-	  <AbcScore abcText={this.state.abcText} />
-	</div>
-	<CircularProgress className={this.state.loading ? "" : "displayNone"}
-			  size={100} thickness={10}
-			  style={{margin: "200px auto"}} />
-      </div>
+      <PageLayout>
+        <div className="studyPage">
+          <div className="controls">
+            <span className="dropdownLabel tuneDropdownLabel">Tune:</span>
+            <DropDownMenu ref="tuneDropdown" value={this.state.selectedTune}
+              iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
+              onChange={(event, index, value) =>
+                self.setState({selectedTune: value}, self._fetchStudy)
+              }>
+              {tuneList}
+            </DropDownMenu>
+            <span className="dropdownLabel typeDropdownLabel">Type:</span>
+            <DropDownMenu ref="typeDropdown" value={this.state.selectedType}
+              iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
+              onChange={(event, index, value) =>
+                self.setState({selectedType: value}, self._fetchStudy)
+              }>
+              {typeList}
+            </DropDownMenu>
+            <a href="javascript:void(0);" onClick={this._playMidi}>Play MIDI</a>
+          </div>
+          <div className={"scoreWrapper " + (this.state.loading ? "displayNone" : "")}>
+            <AbcScore abcText={this.state.abcText} />
+          </div>
+          <CircularProgress className={this.state.loading ? "" : "displayNone"}
+                size={100} thickness={10}
+                style={{margin: "200px auto"}} />
+        </div>
+      </PageLayout>
     );
   },
 
@@ -64,8 +71,8 @@ var StudyPage = React.createClass({
     var self = this;
     common.GETJSON('http://' + window.location.hostname + ':5001/api/tunes', function(result) {
       self.setState({
-	tunes: result.tunes,
-	selectedTune: result.tunes[0]
+        tunes: result.tunes,
+        selectedTune: result.tunes[0]
       }, self._fetchStudy);
     });
   },
@@ -75,12 +82,22 @@ var StudyPage = React.createClass({
     var url = 'http://' + window.location.hostname + ':5001/api/generateStudy?tune=' + this.state.selectedTune;
     this.setState({ loading: true }, () => {
       common.GETJSON(url, function(result) {
-	self.setState({
-	  abcText: result.abc,
-	  loading: false
-	});
+        self.setState({
+          abcText: result.abc,
+          midi: result.midi,
+          loading: false
+        });
       });
     });
+  },
+
+  _playMidi: function() {
+    MIDI.loadPlugin({ soundfontUrl: "./assets/soundfont/", onsuccess: () => {
+      MIDI.Player.loadFile(this.state.midi, () => {
+        MIDI.Player.start();
+      });
+    }});
+    
   }
 
 });

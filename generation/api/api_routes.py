@@ -37,4 +37,5 @@ def generateStudy():
     tune = request.args['tune']
     study = guidetone_study.generate(tune)
     abc = m21utils.writeToAbc(study)
-    return makeJsonResponse({ 'abc': abc })
+    midi = m21utils.writeToMidi(study)
+    return makeJsonResponse({ 'abc': abc, 'midi': midi })
