@@ -4,7 +4,7 @@ var common = {
   GET: function(url, success, failure) {
     if (typeof(failure) == undefined) {
       failure = function() {
-	console.error("failed to GET " + url);
+        console.error("failed to GET " + url);
       };
     }
 
@@ -12,9 +12,9 @@ var common = {
     xhr.open('GET', url);
     xhr.onload = function() {
       if (xhr.status === 200)
-	success && success(xhr.responseText);
+        success && success(xhr.responseText);
       else
-	failure();
+        failure();
     };
     xhr.send();
   },
