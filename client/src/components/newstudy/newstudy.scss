@@ -1,0 +1,25 @@
+.newStudyContainer {
+  padding: 10px 24px !important;
+}
+
+.newStudy {
+  .newStudyLabel {
+    margin-top: 20px;
+    font-weight: bold;
+    color: black;
+  }
+  .controls {
+    text-align: right;
+  }
+  .studyTypeGrid {
+    max-height: 400px; /* TODO: make this adaptive somehow */
+    overflow: scroll;
+    margin-top: 10px;
+    .studyTypeTile {
+      cursor: pointer;
+      &.active {
+        border: 3px solid blue;
+      }
+    }  
+  }
+}

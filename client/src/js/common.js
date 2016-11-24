@@ -1,5 +1,8 @@
 
 var common = {
+
+  apiRoot: 'http://' + window.location.hostname + ':5001/api',
+
   // TODO: Move this to some kind of shared module or find a library to use
   GET: function(url, success, failure) {
     if (typeof(failure) == undefined) {
