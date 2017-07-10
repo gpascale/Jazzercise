@@ -6,12 +6,12 @@ import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import AbcScore from '../components/abcscore/AbcScore';
-import StudyPage from '../components/studypage/StudyPage';
+import AbcScore from 'components/abcscore/AbcScore';
+import StudyPage from 'components/studypage/StudyPage';
 
 require('../scss/bundle.scss');
 
-var injectTapEventPlugin = require("react-tap-event-plugin");
+var injectTapEventPlugin = require('react-tap-event-plugin');
 injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({

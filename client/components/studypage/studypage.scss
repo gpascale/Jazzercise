@@ -1,6 +1,4 @@
-
-.studyPage{
-
+.studyPage {
   .controls {
     text-align: left;
     margin-bottom: 20px;
@@ -8,10 +6,10 @@
     .dropdownLabel {
       color: $dark-gray;
       font-weight: normal;
+
       &:not(:first-child) {
-	margin-left: 30px;
+        margin-left: 30px;
       }
     }
   }
-
 }

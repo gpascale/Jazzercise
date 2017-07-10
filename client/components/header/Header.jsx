@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
 
-import LeftDrawer from '../leftdrawer/LeftDrawer';
+import LeftDrawer from 'components/leftdrawer/LeftDrawer';
 
 export default class Header extends React.Component {
 
@@ -12,7 +12,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <AppBar title="Jazzercise"
-              onLeftIconButtonTouchTap={() => this.refs.drawer.open()}>
+        onLeftIconButtonTouchTap={() => this.refs.drawer.open()}>
         <LeftDrawer ref="drawer"/>
       </AppBar>
     );

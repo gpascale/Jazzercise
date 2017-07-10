@@ -2,37 +2,36 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
-import _ from 'underscore'
-import MIDI from 'midi.js'
+import MIDI from 'midi.js';
 
-import PageLayout from '../pagelayout/PageLayout'
-import AbcScore from '../abcscore/AbcScore'
-import common from 'src/js/common'
+import PageLayout from 'components/pagelayout/PageLayout';
+import AbcScore from 'components/abcscore/AbcScore';
 
 require('assets/soundfont/acoustic_grand_piano-ogg.js');
 
 
-var StudyPage = React.createClass({
+export default class StudyPage extends React.Component {
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       abcText: null,
       selectedTune: null,
-      selectedType: "Guide Tones",
+      selectedType: 'Guide Tones',
       tunes: [ ]
     };
-  },
+  }
 
-  render: function() {
+  render() {
     var self = this;
 
-    var tuneList = _.map(this.state.tunes, function(tune, idx) {
-      return ( <MenuItem key={idx} value={tune} primaryText={tune} /> );
-    });
+    var tuneList = this.state.tunes.map((tune, idx) => (
+      <MenuItem key={idx} value={tune} primaryText={tune} />
+    ));
 
-    var typeList = _.map(['Guide Tones'], function(type, idx) {
-      return ( <MenuItem key={idx} value={type} primaryText={type} /> );
-    });
+    var typeList = ['Guide Tones'].map((type, idx) => (
+      <MenuItem key={idx} value={type} primaryText={type} />
+    ));
 
     return (
       <PageLayout>
@@ -56,57 +55,63 @@ var StudyPage = React.createClass({
             </DropDownMenu>
             <a href="javascript:void(0);" onClick={this._playMidi}>Play MIDI</a>
           </div>
-          <div className={"scoreWrapper " + (this.state.loading ? "displayNone" : "")}>
+          <div className={'scoreWrapper ' + (this.state.loading ? 'displayNone' : '')}>
             <AbcScore abcText={this.state.abcText} />
           </div>
-          <CircularProgress className={this.state.loading ? "" : "displayNone"}
-                size={100} thickness={10}
-                style={{margin: "200px auto"}} />
+          <CircularProgress className={this.state.loading ? '' : 'displayNone'}
+            size={100} thickness={10}
+            style={{margin: '200px auto'}} />
         </div>
       </PageLayout>
     );
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     var self = this;
-    common.GETJSON('http://' + window.location.hostname + ':5001/api/tunes', function(result) {
+    // fetch('/api/tunes').then(result => result.json()).then(({ tunes }) => {
+    //   self.setState({
+    //     tunes,
+    //     selectedTune: tunes[0]
+    //   }, self._fetchStudy);
+    // }).catch(e => {
+    //   console.error('Error fetching /api/tunes');
+    // });
+    fetch('/api/tunes2').then(result => result.json()).then(({ tunes }) => {
       self.setState({
-        tunes: result.tunes,
-        selectedTune: result.tunes[0]
+        tunes,
+        selectedTune: 'Tune Up'
       }, self._fetchStudy);
+    }).catch(e => {
+      console.error('Error fetching /api/tunes');
     });
-  },
+  }
 
-  _fetchStudy: function() {
+  _fetchStudy() {
     var self = this;
-    var url = 'http://' + window.location.hostname + ':5001/api/generateStudy?tune=' + this.state.selectedTune;
+    var url = '/api/generateStudy2?tune=' + this.state.selectedTune;
     this.setState({ loading: true }, () => {
-      common.GETJSON(url, function(result) {
+      fetch(url).then(result => result.json()).then(({ abc, midi }) => {
         self.setState({
-          abcText: result.abc,
-          midi: result.midi,
+          abcText: abc,
+          midi: midi,
           loading: false
         });
       });
     });
-  },
+  }
 
-  _playMidi: function() {
-    MIDI.loadPlugin({ soundfontUrl: "./assets/soundfont/", onsuccess: () => {
+  _playMidi() {
+    MIDI.loadPlugin({ soundfontUrl: './assets/soundfont/', onsuccess: () => {
       const player = MIDI.Player;
       player.loadFile(this.state.midi.lead, () => {
         player.start();
         player.addListener(function(evt) {
           if (evt.message == 144) {
-            console.log("NOTE ON: " + evt.note);
-            console.log("TIME: " + evt.now);
+            console.log('NOTE ON: ' + evt.note);
+            console.log('TIME: ' + evt.now);
           }
         });
       });
     }});
-    
   }
-
-});
-
-module.exports = StudyPage;
+}

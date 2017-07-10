@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Dialog from 'material-ui/Dialog';
-const abcjs = require("imports?window=>{}!exports?window.ABCJS!ext/abcjs.js")
+const abcjs = require('imports-loader?window=>{}!exports-loader?window.ABCJS!ext/abcjs.js');
 
 function cleanupAbc(abcText) {
   if (!abcText) {
@@ -13,20 +13,21 @@ function cleanupAbc(abcText) {
   }
   var ret = abcText;
   ret = ret.replace(/\$/g, '');
-  ret = "%%staffsep 70\n" + ret;
+  ret = '%%staffsep 70\n' + ret;
   return ret;
 }
 
-var AbcScore = React.createClass({
+export default class AbcScore extends React.Component {
 
-  getInitialState: function() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       viewingSource: false,
       abcText: false
     };
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="abcscore">
       	<div className="score" ref="score" id="score">
@@ -47,25 +48,25 @@ var AbcScore = React.createClass({
       	  </pre>
       	</Dialog>
       </div>
-    )
-  },
+    );
+  }
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.abcText != this.props.abcText) {
       this._renderAbc(nextProps.abcText);
     }
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     var self = this;
     if (this.props.abcText)
       this._renderAbc(this.props.abcText);
 
     // TODO: This is a little gross
     window.onresize = (event) => self._renderAbc(self.props.abcText);
-  },
+  }
 
-  _renderAbc: function(abcText) {
+  _renderAbc(abcText) {
     const elementWidth = ReactDOM.findDOMNode(this.refs.score).offsetWidth;
     const abcTextCleaned = cleanupAbc(abcText);
     var desiredWidth = elementWidth;
@@ -77,10 +78,8 @@ var AbcScore = React.createClass({
       paddingright: paddingH,
       paddingtop: paddingV,
       paddingbottom: paddingV,
-    }
+    };
     abcjs.renderAbc('score', abcTextCleaned, null, opts);
   }
 
-});
-
-export default AbcScore;
+}
