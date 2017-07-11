@@ -1,0 +1,13 @@
+.betterSearch {
+  display: inline-block;
+
+  .results {
+    .result {
+      padding: 0 !important;
+
+      .content {
+        padding: 10px !important;
+      }
+    }
+  }
+}

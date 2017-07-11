@@ -3,9 +3,12 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import CircularProgress from 'material-ui/CircularProgress';
 import MIDI from 'midi.js';
+import { Dropdown } from 'semantic-ui-react'
+
 
 import PageLayout from 'components/pagelayout/PageLayout';
 import AbcScore from 'components/abcscore/AbcScore';
+import BetterSearch from 'components/bettersearch/BetterSearch';
 
 require('assets/soundfont/acoustic_grand_piano-ogg.js');
 
@@ -16,7 +19,7 @@ export default class StudyPage extends React.Component {
     super(props);
     this.state = {
       abcText: null,
-      selectedTune: null,
+      selectedTune: 'All The Things You Are',
       selectedType: 'Guide Tones',
       tunes: [ ]
     };
@@ -25,34 +28,28 @@ export default class StudyPage extends React.Component {
   render() {
     var self = this;
 
-    var tuneList = this.state.tunes.map((tune, idx) => (
-      <MenuItem key={idx} value={tune} primaryText={tune} />
-    ));
-
-    var typeList = ['Guide Tones'].map((type, idx) => (
-      <MenuItem key={idx} value={type} primaryText={type} />
-    ));
+    const types = [ 'Guide Tones' ];
+    const { tunes } = this.state;
 
     return (
       <PageLayout>
         <div className="studyPage">
           <div className="controls">
-            <span className="dropdownLabel tuneDropdownLabel">Tune:</span>
-            <DropDownMenu ref="tuneDropdown" value={this.state.selectedTune}
-              iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
-              onChange={(event, index, value) =>
-                self.setState({selectedTune: value}, self._fetchStudy)
-              }>
-              {tuneList}
-            </DropDownMenu>
-            <span className="dropdownLabel typeDropdownLabel">Type:</span>
-            <DropDownMenu ref="typeDropdown" value={this.state.selectedType}
-              iconStyle={{fill: 'rgb(140, 140, 140)'}} underlineStyle={{borderTop: '1px solid rgb(140, 140, 140)'}}
-              onChange={(event, index, value) =>
-                self.setState({selectedType: value}, self._fetchStudy)
-              }>
-              {typeList}
-            </DropDownMenu>
+            <div className="control">
+              <span className="dropdownLabel tuneDropdownLabel">Tune:</span>
+              <BetterSearch
+                items={tunes ? (tunes.map(tune => ({ title: tune }))) : [ ]}
+                onSelected={(tune) => self.setState({ selectedTune: tune }, self._fetchStudy)}
+                defaultValue='All The Things You Are'
+              />
+            </div>
+            <div className="control">
+              <span className="dropdownLabel typeDropdownLabel">Type:</span>
+              <Dropdown placeholder='Study Type' selection
+                        options={types.map(type => ({ text: type, value: type }))}
+                        defaultValue='Guide Tones'
+                        onChange={(e, {value}) => self.setState({selectedType: value}, self._fetchStudy)} />
+            </div>
             <a href="javascript:void(0);" onClick={this._playMidi}>Play MIDI</a>
           </div>
           <div className={'scoreWrapper ' + (this.state.loading ? 'displayNone' : '')}>
@@ -68,18 +65,9 @@ export default class StudyPage extends React.Component {
 
   componentDidMount() {
     var self = this;
-    // fetch('/api/tunes').then(result => result.json()).then(({ tunes }) => {
-    //   self.setState({
-    //     tunes,
-    //     selectedTune: tunes[0]
-    //   }, self._fetchStudy);
-    // }).catch(e => {
-    //   console.error('Error fetching /api/tunes');
-    // });
     fetch('/api/tunes2').then(result => result.json()).then(({ tunes }) => {
       self.setState({
-        tunes,
-        selectedTune: 'Tune Up'
+        tunes
       }, self._fetchStudy);
     }).catch(e => {
       console.error('Error fetching /api/tunes');
