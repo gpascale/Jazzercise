@@ -6,6 +6,7 @@ import glob
 import os
 import sqlite3
 from copy import deepcopy
+import sys
 
 import music21_utils as m21utils
 import guidetone_study_greg as guidetone_study

@@ -136,7 +136,8 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    host: 'localhost',
+    host: '0.0.0.0',
+    disableHostCheck: true,
     port: 3113,
     proxy: {
       '/api/*': {
