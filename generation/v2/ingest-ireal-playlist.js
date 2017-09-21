@@ -1,7 +1,7 @@
 const fs = require('fs');
 const iRealReader = require('ireal-reader');
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('generation/v2/db/songs.db');
+const db = new sqlite3.Database('db/songs.db');
 
 const home = process.env.HOME;
 const Measure = require('./measure');

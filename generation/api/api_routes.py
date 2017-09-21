@@ -47,7 +47,7 @@ def listTunes2():
     return makeJsonResponse({ 'tunes': sorted([ t[0] for t in tunes ]) })
 
 
-@app.route('/api/generateStudy')
+@app.route('/api/study/generate')
 def generateStudy():
     tune = request.args['tune']
     study = guidetone_study.generate(tune)

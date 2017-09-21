@@ -15,15 +15,12 @@ db_conn = sqlite3.connect('../db/songs.db', check_same_thread=False)
 
 
 def generate(tune, clef=m21.clef.TrebleClef()):
-    c = db_conn.cursor()
-    c.execute('SELECT key, measures FROM songs WHERE title=?', (tune,))
-    [(key, measures)] = c.fetchall()
-    c.close()
+    (title, key, measures) = tune
 
     the_score = Score()
     m21.harmony.realizeChordSymbolDurations(the_score) ## Needed to make this work!
     the_score.metadata = m21.metadata.Metadata()
-    the_score.metadata.title = tune + ' - Guide Tone Study'
+    the_score.metadata.title = title + ' - Guide Tone Study'
     the_score.metadata.movementName = ' ' # For some reason this works, None and '' don't...
     the_score.metadata.composer = 'Greg Pascale'
     the_part = Part()
@@ -35,15 +32,13 @@ def generate(tune, clef=m21.clef.TrebleClef()):
         m = Measure()
         m.number = measureNum
 
-        print measure
-
         chords = measure['chords'] if (len(measure['chords']) <= 2) else [ measure.chords[0] ]
         numChords = len(chords)
 
         for chord in chords:
             root = chord[0]
             kind = chord[1:]
-            # print root, kind
+            # print(root, kind)
             chordSymbol = harmony.ChordSymbol(root=root, bass=root, kind='minor')
             chordSymbol.duration = Duration(4 / numChords)
             m.append(chordSymbol)
@@ -54,10 +49,8 @@ def generate(tune, clef=m21.clef.TrebleClef()):
             m.append(n)
 
         if 'repeatStart' in measure and measure['repeatStart'] == True:
-            print 'start repeat!'
             m.leftBarline = Repeat(direction='start')
         if 'repeatEnd' in measure and measure['repeatEnd'] == True:
-            print 'end repeat!'
             m.rightBarline = Repeat(direction='end')
 
         the_part.append(m)
@@ -67,17 +60,16 @@ def generate(tune, clef=m21.clef.TrebleClef()):
     measureNum = 0
     for measure in measures:
         if 'ending' in measure:
-            print 'ending', measure['ending']
             m21.repeat.insertRepeatEnding(the_part, measureNum, measureNum, measure['ending'], inPlace=True)
         measureNum += 1
 
 
-    # print 'printing all the measures...'
+    # print('printing all the measures...')
     # mn = 0
     # for m in the_part:
-    #     print m
-    #     print mn
-    #     print the_part.measure(mn)
+    #     print(m)
+    #     print(mn)
+    #     print(the_part.measure(mn))
     #     mn += 1
 
     return the_score

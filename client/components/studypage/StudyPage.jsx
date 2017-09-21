@@ -65,26 +65,31 @@ export default class StudyPage extends React.Component {
 
   componentDidMount() {
     var self = this;
-    fetch('/api/tunes2').then(result => result.json()).then(({ tunes }) => {
-      self.setState({
-        tunes
-      }, self._fetchStudy);
-    }).catch(e => {
-      console.error('Error fetching /api/tunes');
-    });
+    fetch('/api/tunes')
+      .then(result => result.json())
+      .then(({ result }) => {
+        self.setState({ tunes: result });
+        self._fetchStudy();
+      })
+      .catch(e => {
+        console.error('Error fetching /api/tunes');
+      });
   }
 
   _fetchStudy() {
     var self = this;
-    var url = '/api/generateStudy2?tune=' + this.state.selectedTune;
+    var url = '/api/study/' + this.state.selectedTune;
     this.setState({ loading: true }, () => {
-      fetch(url).then(result => result.json()).then(({ abc, midi }) => {
-        self.setState({
-          abcText: abc,
-          midi: midi,
-          loading: false
+      fetch(url)
+        .then(result => result.json())
+        .then(({ result }) => {
+          const { abc, midi } = result;
+          self.setState({
+            abcText: abc,
+            midi: midi,
+            loading: false
+          });
         });
-      });
     });
   }
 

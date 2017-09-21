@@ -24,17 +24,16 @@ def writeToString(music21Object, fmt=None):
     fp = music21Object.write(fmt='musicxml', fp=None)
     ret = ''
     with open(fp, 'r') as f:
-	ret = f.read()
+        ret = f.read()
     os.remove(fp)
     return ret
 
 
 def writeToAbc(music21Object):
     fp = music21Object.write(fmt='musicxml', fp=None)
-    command = [ 'python', 'xml2abc.py', '-b', '4', fp ]
+    command = [ '/Users/gtp/miniconda3/envs/jazz27/bin/python', 'xml2abc.py', '-b', '4', fp ]
     result = subprocess.check_output(command)
     return result
-
 
 def xmlToAbc(xmlPath):
     command = [ 'python', 'xml2abc.py', '-b', '4', xmlPath ]

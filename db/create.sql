@@ -1,5 +1,5 @@
 
-.open generation/v2/db/songs.db
+.open db/songs.db
 DROP TABLE IF EXISTS songs;
 CREATE TABLE songs(
   composer TEXT,
