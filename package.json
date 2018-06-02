@@ -39,6 +39,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
+    "eve": "^0.5.4",
     "express": "^4.14.0",
     "ireal-reader": "^1.2.2",
     "midi.js": "^0.3.1",

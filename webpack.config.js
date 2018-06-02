@@ -91,7 +91,8 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      'Raphael': 'raphael'
+      'eve': 'eve',
+      'Raphael': 'raphael/raphael.no-deps.js'
     }),
     new HtmlWebpackPlugin({
       template: Path.join(__dirname, 'client/html/index.html'),
